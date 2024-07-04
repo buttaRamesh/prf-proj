@@ -18,7 +18,7 @@ const NavigationPanel = ({ handleBack, handleNext, isLastStep }) => {
         // onClick={handleNext}
         type="submit"
       >
-        {isLastStep() ? "Review" : "Next"}
+        {isLastStep() ? "Submit" : "Next"}
       </Button>
     </Box>
   );

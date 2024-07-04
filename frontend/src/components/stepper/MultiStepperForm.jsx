@@ -57,11 +57,11 @@ const MultiStepperForm = ({ children, initialValues }) => {
   const handleBack = () => {
     navigateTo(Math.max(activeStep - 1, 0));
   };
-
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
+      // validationSchema={personalDetailsSchema}
       validationSchema={currentStep.props.validationSchema}
     >
       {(formik) => (
@@ -78,7 +78,7 @@ const MultiStepperForm = ({ children, initialValues }) => {
             <Box mt={2}>
               <Stepper activeStep={activeStep} alternativeLabel sx={stepStyle}>
                 {steps.map((step, index) => (
-                  <Step>
+                  <Step key={index}>
                     <StepLabel>{step.props.stepName}</StepLabel>
                   </Step>
                 ))}
@@ -99,32 +99,3 @@ const MultiStepperForm = ({ children, initialValues }) => {
 };
 
 export default MultiStepperForm;
-
-import StepConnector, {
-  stepConnectorClasses,
-} from "@mui/material/StepConnector";
-import { Padding } from "@mui/icons-material";
-
-// const CustomStepConnector = styled(StepConnector)(({ theme }) => ({
-//   [`&.${stepConnectorClasses.alternativeLabel}`]: {
-//     top: 10,
-//     left: "calc(-50% + 16px)",
-//     right: "calc(50% + 16px)",
-//   },
-//   [`&.${stepConnectorClasses.active}`]: {
-//     [`& .${stepConnectorClasses.line}`]: {
-//       borderColor: "#784af4",
-//     },
-//   },
-//   [`&.${stepConnectorClasses.completed}`]: {
-//     [`& .${stepConnectorClasses.line}`]: {
-//       borderColor: "#784af4",
-//     },
-//   },
-//   [`& .${stepConnectorClasses.line}`]: {
-//     borderColor:
-//       theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
-//     borderTopWidth: 3,
-//     borderRadius: 1,
-//   },
-// }));

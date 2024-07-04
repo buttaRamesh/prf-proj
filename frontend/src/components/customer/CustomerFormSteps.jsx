@@ -13,30 +13,49 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import * as yup from "yup";
 import FormikMuiInput, { FormikMuiDateField } from "../stepper/FormikMuiInput";
+import CustomerRegistrationReview from "./CustomerRegistrationReview";
 
-const personalDetailsSchema = yup.object({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
+// export const registrationValidationSchema = {
+//   personalDetailsSchema,
+//   contactDetailsSchema,
+//   addressDetailsSchema,
+//   identificationDetailsSchema,
+//   financialDetailsSchema,
+// };
+
+export const personalDetailsSchema = yup.object({
+  personalDetails: yup.object({
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
+  }),
 });
 const contactDetailsSchema = yup.object({
-  phone1: yup.number().required(),
-  email: yup.string().email().required(),
+  contactDetails: yup.object({
+    phone1: yup.number().required(),
+    email: yup.string().email().required(),
+  }),
 });
 const addressDetailsSchema = yup.object({
-  houseNumber: yup.string().required(),
-  pinCode: yup.number().required(),
+  addressDetails: yup.object({
+    houseNumber: yup.string().required(),
+    pinCode: yup.number().required(),
+  }),
   // city: yup.string().required(),
   // state: yup.string().required(),
   // country: yup.string().required(),
 });
 const identificationDetailsSchema = yup.object({
-  panNumber: yup.number().required(),
-  adhaarNumber: yup.string().required(),
+  identificationDetails: yup.object({
+    panNumber: yup.number().required(),
+    adhaarNumber: yup.string().required(),
+  }),
 });
 const financialDetailsSchema = yup.object({
-  accountNumber: yup.number().required(),
-  accountType: yup.string().required(),
-  bankName: yup.string().required(),
+  financialDetails: yup.object({
+    accountNumber: yup.number().required(),
+    accountType: yup.string().required(),
+    bankName: yup.string().required(),
+  }),
 });
 
 const FormContainer = styled(Box)({
@@ -48,13 +67,14 @@ const FormContainer = styled(Box)({
   gap: 20,
 });
 
-export const PersonalDetails = () => {
+export const PersonalDetails = (props) => {
+  console.log("props", props);
   return (
     <FormContainer>
       <FormikMuiInput
         label="First Name"
         fullWidth
-        name="firstName"
+        name="personalDetails.firstName"
         id="firstName"
       />
 
@@ -62,13 +82,17 @@ export const PersonalDetails = () => {
         variant="standard"
         label="Last Name"
         fullWidth
-        name="lastName"
+        name="personalDetails.lastName"
         id="lastName"
       />
       {/* <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker label="Date of Birth" name="dob" id="dob" />
       </LocalizationProvider> */}
-      <FormikMuiDateField name="dob" label="Dateof birth" id="dob" />
+      {/* <FormikMuiDateField
+        name="personalDetails.dob"
+        label="Dateof birth"
+        id="dob"
+      /> */}
     </FormContainer>
   );
 };
@@ -81,19 +105,24 @@ export const ContactDetails = () => {
         <Box gap={2} display={"flex"} justifyContent={"space-between"}>
           <FormikMuiInput
             label="Primary"
-            name="phone1"
+            name="contactDetails.phone1"
             id="phone1"
             sx={{ width: "250px" }}
           />
           <FormikMuiInput
             label="Alternate"
-            name="phone2"
+            name="contactDetails.phone2"
             id="phone2"
             sx={{ width: "250px" }}
           />
         </Box>
       </Box>
-      <FormikMuiInput name="email" id="email" label="Email" fullWidth />
+      <FormikMuiInput
+        name="contactDetails.email"
+        id="email"
+        label="Email"
+        fullWidth
+      />
     </FormContainer>
   );
 };
@@ -105,12 +134,12 @@ export const AddressDetails = () => {
         <FormikMuiInput
           label="House Number"
           sx={{ width: "250px" }}
-          name="houseNumber"
+          name="addressDetails.houseNumber"
           id="houseNumber"
         />
         <FormikMuiInput
           label="Flat Number"
-          name="flatNumber"
+          name="addressDetails.flatNumber"
           id="flatNumber"
           sx={{ width: "250px" }}
           size="small"
@@ -119,13 +148,13 @@ export const AddressDetails = () => {
       <Box gap={2} display={"flex"} justifyContent={"space-between"}>
         <FormikMuiInput
           label="Street"
-          name="street"
+          name="addressDetails.street"
           id="street"
           sx={{ width: "250px" }}
         />
         <FormikMuiInput
           label="Land mark"
-          name="landMark"
+          name="addressDetails.landMark"
           id="landMark"
           sx={{ width: "250px" }}
           size="small"
@@ -134,14 +163,14 @@ export const AddressDetails = () => {
       <Box gap={2} display={"flex"} justifyContent={"space-between"}>
         <FormikMuiInput
           label="Pin Code"
-          name="pinCode"
+          name="addressDetails.pinCode"
           id="pinCode"
           sx={{ width: "250px" }}
           size="small"
         />
         <FormikMuiInput
           label="City"
-          name="city"
+          name="addressDetails.city"
           id="city"
           sx={{ width: "250px" }}
           size="small"
@@ -150,7 +179,7 @@ export const AddressDetails = () => {
       <Box gap={2} display={"flex"} justifyContent={"space-between"}>
         <FormikMuiInput
           label="State"
-          name="state"
+          name="addressDetails.state"
           id="state"
           sx={{ width: "250px" }}
           size="small"
@@ -161,7 +190,7 @@ export const AddressDetails = () => {
         </FormikMuiInput>
         <FormikMuiInput
           label="Country"
-          name="country"
+          name="addressDetails.country"
           id="country"
           sx={{ width: "250px" }}
           select
@@ -179,14 +208,14 @@ export const IdentificationDetails = () => {
     <FormContainer>
       <FormikMuiInput
         label="Pan Number"
-        name="panNumber"
+        name="identificationDetails.panNumber"
         id="panNumber"
         sx={{ width: "300px" }}
       />
       <FormikMuiInput
         variant="standard"
         label="Adhaar Number"
-        name="adhaarNumber"
+        name="identificationDetails.adhaarNumber"
         id="adhaarNumber"
         sx={{ width: "300px" }}
       />
@@ -198,7 +227,7 @@ export const FinancialDetails = () => {
     <FormContainer>
       <FormikMuiInput
         label="Account Number"
-        name="accountNumber"
+        name="financialDetails.accountNumber"
         id="accountNumber"
         // sx={{ width: "300px" }}
         fullWidth
@@ -207,7 +236,7 @@ export const FinancialDetails = () => {
         <FormikMuiInput
           variant="standard"
           label="Account Type "
-          name="accountType"
+          name="financialDetails.accountType"
           id="accountType"
           sx={{ width: "250px" }}
           select
@@ -218,21 +247,21 @@ export const FinancialDetails = () => {
         <FormikMuiInput
           variant="standard"
           label="IFSC Code"
-          name="ifscCode"
+          name="financialDetails.ifscCode"
           id="ifscCode"
           sx={{ width: "250px" }}
         />
       </Box>
       <FormikMuiInput
         label="Bank Name"
-        name="bankName"
+        name="financialDetails.bankName"
         id="bankName"
         // sx={{ width: "300px" }}
         fullWidth
       />
       <FormikMuiInput
         label="Address"
-        name="bankAddress"
+        name="financialDetails.bankAddress"
         id="bankAddress"
         // sx={{ width: "300px" }}
         fullWidth
@@ -246,28 +275,70 @@ export const formSteps = [
     name: "Personal Info",
     schema: personalDetailsSchema,
     component: <PersonalDetails />,
+    getComponent: (props = {}) => <PersonalDetails {...props} />,
   },
+  // {
+  //   name: "Contact Details",
+  //   schema: contactDetailsSchema,
+  //   component: <ContactDetails />,
+  // },
+  // {
+  //   name: "Address Details",
+  //   schema: addressDetailsSchema,
+  //   component: <AddressDetails />,
+  // },
+  // {
+  //   name: "Identification",
+  //   schema: identificationDetailsSchema,
+  //   component: <IdentificationDetails />,
+  // },
+  // {
+  //   name: "Bank Details",
+  //   schema: financialDetailsSchema,
+  //   component: <FinancialDetails />,
+  // },
   {
-    name: "Contact Details",
-    schema: contactDetailsSchema,
-    component: <ContactDetails />,
-  },
-  {
-    name: "Address Details",
-    schema: addressDetailsSchema,
-    component: <AddressDetails />,
-  },
-  {
-    name: "Identification",
-    schema: identificationDetailsSchema,
-    component: <IdentificationDetails />,
-  },
-  {
-    name: "Bank Details",
-    schema: financialDetailsSchema,
-    component: <FinancialDetails />,
+    name: "Review Info",
+    schema: {},
+    component: <CustomerRegistrationReview />,
+    getComponent: (props = {}) => <CustomerRegistrationReview {...props} />,
   },
 ];
+
+export const initialCustomerFormData = {
+  personalDetails: {
+    firstName: "",
+    lastName: "",
+    gender: "",
+    // dob: new Date(),
+  },
+  contactDetails: {
+    email: "",
+    phone1: "",
+    phone2: "",
+  },
+  addressDetails: {
+    houseNumber: "",
+    flatNumber: "",
+    landMark: "",
+    street: "",
+    city: "",
+    state: "",
+    country: "",
+    pinCode: "",
+  },
+  identificationDetails: {
+    panNumber: "",
+    adhaarNumber: "",
+  },
+  financialDetails: {
+    accountNumber: "",
+    accountType: "",
+    ifscCode: "",
+    bankName: "",
+    bankAddress: "",
+  },
+};
 
 export const customerFormData = {
   firstName: "",
@@ -292,37 +363,3 @@ export const customerFormData = {
   bankName: "",
   bankAddress: "",
 };
-
-{
-  /* <Box gap={2} display={"flex"} justifyContent={"space-between"}>
-        <FormikMuiInput
-          variant="standard"
-          label="State"
-          name="state"
-          id="state"
-          sx={{ width: "250px" }}
-          size="small"
-        >
-          <MenuItem value="savings">Savings</MenuItem>
-          <MenuItem value="current">Current</MenuItem>
-        </FormikMuiInput>
-        <FormikMuiInput
-          variant="standard"
-          label="Country"
-          name="country"
-          id="country"
-          sx={{ width: "250px" }}
-        >
-          <MenuItem value="savings">Savings</MenuItem>
-          <MenuItem value="current">Current</MenuItem>
-        </FormikMuiInput>
-      </Box> */
-}
-
-// let userSchema = object({
-//       name: string().required(),
-//       age: number().required().positive().integer(),
-//       email: string().email(),
-//       website: string().url().nullable(),
-//       createdOn: date().default(() => new Date()),
-//     });
