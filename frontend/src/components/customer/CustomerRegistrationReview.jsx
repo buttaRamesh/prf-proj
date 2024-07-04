@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Accordion,
   AccordionActions,
@@ -9,6 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useField, useFormikContext } from "formik";
+import { NavContext } from "../stepper/MultiStepperForm";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const formatName = (camel) => {
   const camelCase = camel.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
@@ -21,17 +23,45 @@ const formatName = (camel) => {
 
 const CustomerRegistrationReview = () => {
   const { values: formData } = useFormikContext();
-  console.log("form values");
-  console.log(formData);
-  console.log(Object.keys(formData));
-  const mapdata = Object.entries(formData.personalDetails).map(
-    ([name, value]) => value
-  );
-  console.log(mapdata);
-
+  const defaultPanel = Object.keys(formData)[0];
+  console.log(defaultPanel);
+  const [expandedPanel, setExpandedPanel] = useState(defaultPanel);
+  const { navigateTo } = useContext(NavContext);
   return (
     <Box>
-      <Accordion>
+      {Object.entries(formData).map(([stepName, stepData], stepNumber) => (
+        <Accordion
+          expanded={expandedPanel === stepName}
+          onChange={() => {
+            setExpandedPanel(expandedPanel === stepName ? false : stepName);
+          }}
+          sx={{ backgroundColor: "lightgray" }}
+        >
+          <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+            <Header name={formatName(stepName)} />
+          </AccordionSummary>
+          <AccordionDetails>
+            {Object.entries(stepData).map(([fieldName, fieldValue]) => (
+              <div>
+                {formatName(fieldName)} : {fieldValue}
+              </div>
+            ))}
+          </AccordionDetails>
+          <AccordionActions>
+            <Button
+              variant="contained"
+              color="error"
+              size="small"
+              onClick={() => {
+                navigateTo(stepNumber);
+              }}
+            >
+              Edit
+            </Button>
+          </AccordionActions>
+        </Accordion>
+      ))}
+      {/* <Accordion sx={{ backgroundColor: "lightgray" }}>
         <AccordionSummary>
           <Header name="Personal Details" />
         </AccordionSummary>
@@ -43,11 +73,18 @@ const CustomerRegistrationReview = () => {
           ))}
         </AccordionDetails>
         <AccordionActions>
-          <Button variant="contained" color="error" size="small">
+          <Button
+            variant="contained"
+            color="error"
+            size="small"
+            onClick={() => {
+              navigateTo(0);
+            }}
+          >
             Edit
           </Button>
         </AccordionActions>
-      </Accordion>
+      </Accordion> */}
     </Box>
   );
 };
@@ -69,3 +106,30 @@ const Header = ({ name }) => {
 };
 
 export default CustomerRegistrationReview;
+
+{
+  /* <Accordion sx={{ backgroundColor: "lightgray" }}>
+<AccordionSummary>
+  <Header name="Personal Details" />
+</AccordionSummary>
+<AccordionDetails>
+  {Object.entries(formData.personalDetails).map(([name, value]) => (
+    <div>
+      {formatName(name)} : {value}
+    </div>
+  ))}
+</AccordionDetails>
+<AccordionActions>
+  <Button
+    variant="contained"
+    color="error"
+    size="small"
+    onClick={() => {
+      navigateTo(0);
+    }}
+  >
+    Edit
+  </Button>
+</AccordionActions>
+</Accordion> */
+}

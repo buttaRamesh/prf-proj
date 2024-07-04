@@ -1,6 +1,6 @@
 import { Box, Button, Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import NavigationPanel from "./NavigationPanel";
 
 const stepStyle = {
@@ -35,6 +35,7 @@ const stepStyle = {
   },
 };
 
+export const NavContext = createContext();
 const MultiStepperForm = ({ children, initialValues }) => {
   const [activeStep, navigateTo] = useState(0);
   const steps = React.Children.toArray(children);
@@ -66,32 +67,34 @@ const MultiStepperForm = ({ children, initialValues }) => {
     >
       {(formik) => (
         <Form>
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"space-between"}
-            border={2}
-            sx={{
-              minHeight: 400,
-            }}
-          >
-            <Box mt={2}>
-              <Stepper activeStep={activeStep} alternativeLabel sx={stepStyle}>
-                {steps.map((step, index) => (
-                  <Step key={index}>
-                    <StepLabel>{step.props.stepName}</StepLabel>
-                  </Step>
-                ))}
-              </Stepper>
-              {currentStep}
-            </Box>
+          <NavContext.Provider value={{ activeStep, navigateTo, isLastStep }}>
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"space-between"}
+              border={2}
+              sx={{
+                minHeight: 400,
+              }}
+            >
+              <Box mt={2}>
+                <Stepper
+                  activeStep={activeStep}
+                  alternativeLabel
+                  sx={stepStyle}
+                >
+                  {steps.map((step, index) => (
+                    <Step key={index}>
+                      <StepLabel>{step.props.stepName}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+                {currentStep}
+              </Box>
 
-            <NavigationPanel
-              handleBack={handleBack}
-              handleNext={handleNext}
-              isLastStep={isLastStep}
-            />
-          </Box>
+              <NavigationPanel />
+            </Box>
+          </NavContext.Provider>
         </Form>
       )}
     </Formik>

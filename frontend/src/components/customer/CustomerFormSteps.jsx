@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Box from "@mui/material/Box";
-import { red } from "@mui/material/colors";
 import {
   Container,
   MenuItem,
@@ -277,26 +276,26 @@ export const formSteps = [
     component: <PersonalDetails />,
     getComponent: (props = {}) => <PersonalDetails {...props} />,
   },
-  // {
-  //   name: "Contact Details",
-  //   schema: contactDetailsSchema,
-  //   component: <ContactDetails />,
-  // },
-  // {
-  //   name: "Address Details",
-  //   schema: addressDetailsSchema,
-  //   component: <AddressDetails />,
-  // },
-  // {
-  //   name: "Identification",
-  //   schema: identificationDetailsSchema,
-  //   component: <IdentificationDetails />,
-  // },
-  // {
-  //   name: "Bank Details",
-  //   schema: financialDetailsSchema,
-  //   component: <FinancialDetails />,
-  // },
+  {
+    name: "Contact Details",
+    schema: contactDetailsSchema,
+    getComponent: (props = {}) => <ContactDetails {...props} />,
+  },
+  {
+    name: "Address Details",
+    schema: addressDetailsSchema,
+    getComponent: (props = {}) => <AddressDetails {...props} />,
+  },
+  {
+    name: "Identification",
+    schema: identificationDetailsSchema,
+    getComponent: (props = {}) => <IdentificationDetails {...props} />,
+  },
+  {
+    name: "Bank Details",
+    schema: financialDetailsSchema,
+    getComponent: (props = {}) => <FinancialDetails {...props} />,
+  },
   {
     name: "Review Info",
     schema: {},
