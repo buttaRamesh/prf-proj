@@ -13,6 +13,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import * as yup from "yup";
 import FormikMuiInput, { FormikMuiDateField } from "../stepper/FormikMuiInput";
 import CustomerRegistrationReview from "./CustomerRegistrationReview";
+import CustomerAddress from "./CustomerAddress";
 
 // export const registrationValidationSchema = {
 //   personalDetailsSchema,
@@ -36,12 +37,16 @@ const contactDetailsSchema = yup.object({
 });
 const addressDetailsSchema = yup.object({
   addressDetails: yup.object({
-    houseNumber: yup.string().required(),
-    pinCode: yup.number().required(),
+    houseNumber: yup.string().required("house number required"),
+    pinCode: yup
+      .number("must be numeric")
+      .required("pin required")
+      .typeError("must be numeric"),
+    street: yup.string().required("required city"),
+    city: yup.string().required("required city"),
+    state: yup.string().required("select state"),
+    country: yup.string().required("select country"),
   }),
-  // city: yup.string().required(),
-  // state: yup.string().required(),
-  // country: yup.string().required(),
 });
 const identificationDetailsSchema = yup.object({
   identificationDetails: yup.object({
@@ -284,7 +289,8 @@ export const formSteps = [
   {
     name: "Address Details",
     schema: addressDetailsSchema,
-    getComponent: (props = {}) => <AddressDetails {...props} />,
+    // getComponent: (props = {}) => <AddressDetails {...props} />,
+    getComponent: (props = {}) => <CustomerAddress {...props} />,
   },
   {
     name: "Identification",

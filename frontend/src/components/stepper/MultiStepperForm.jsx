@@ -2,9 +2,12 @@ import { Box, Button, Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
 import React, { createContext, useState } from "react";
 import NavigationPanel from "./NavigationPanel";
+import { BorderLeft } from "@mui/icons-material";
 
 const stepStyle = {
   boxShadow: 2,
+  borderTopLeftRadius: "20px",
+  borderTopRightRadius: "20px",
   // backgroundColor: "rgba(0,0,0,0.1)",
   padding: "4px 0 2px 0",
   "& .Mui-active": {
@@ -37,7 +40,7 @@ const stepStyle = {
 
 export const NavContext = createContext();
 const MultiStepperForm = ({ children, initialValues }) => {
-  const [activeStep, navigateTo] = useState(0);
+  const [activeStep, navigateTo] = useState(2);
   const steps = React.Children.toArray(children);
   const currentStep = steps[activeStep];
 
@@ -72,12 +75,19 @@ const MultiStepperForm = ({ children, initialValues }) => {
               display={"flex"}
               flexDirection={"column"}
               justifyContent={"space-between"}
-              border={2}
               sx={{
                 minHeight: 400,
               }}
             >
-              <Box mt={2}>
+              <Box
+                mt={2}
+                flexGrow={1}
+                // borderColor={"orange"}
+                border={2}
+                borderRadius={"20px"}
+                display={"flex"}
+                flexDirection={"column"}
+              >
                 <Stepper
                   activeStep={activeStep}
                   alternativeLabel

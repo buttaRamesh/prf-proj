@@ -61,30 +61,6 @@ const CustomerRegistrationReview = () => {
           </AccordionActions>
         </Accordion>
       ))}
-      {/* <Accordion sx={{ backgroundColor: "lightgray" }}>
-        <AccordionSummary>
-          <Header name="Personal Details" />
-        </AccordionSummary>
-        <AccordionDetails>
-          {Object.entries(formData.personalDetails).map(([name, value]) => (
-            <div>
-              {formatName(name)} : {value}
-            </div>
-          ))}
-        </AccordionDetails>
-        <AccordionActions>
-          <Button
-            variant="contained"
-            color="error"
-            size="small"
-            onClick={() => {
-              navigateTo(0);
-            }}
-          >
-            Edit
-          </Button>
-        </AccordionActions>
-      </Accordion> */}
     </Box>
   );
 };
