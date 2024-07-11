@@ -1,9 +1,21 @@
 import { Box, MenuItem, Typography, Checkbox } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import FormikMuiInput from "../stepper/FormikMuiInput";
 import { useFormikContext } from "formik";
+const formatName = (camel) => {
+  const camelCase = camel.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
+  let flat = "";
+  camelCase.forEach((word) => {
+    flat = flat + word.charAt(0).toUpperCase() + word.slice(1) + " ";
+  });
+  return flat;
+};
 
 const CustomerAddress = () => {
+  const [add1, setAdd1] = useState({});
+  const [add2, setAdd2] = useState({});
+  const [add1Saved, setAdd1Saved] = useState(false);
+  const [toRenderAdd2, setToRenderAdd2] = useState(false);
   const formikContext = useFormikContext();
   const errors = formikContext.errors.addressDetails;
   // const touchedFields = formikContext.touched.addressDetails
@@ -22,7 +34,9 @@ const CustomerAddress = () => {
 
   const toRenderView =
     !errors && reqFields.every((elm) => formData[elm]) && true;
-  console.log("stat ", toRenderView);
+  if (toRenderView && !add1Saved) {
+    setAdd1Saved(true);
+  }
 
   return (
     <Box
@@ -129,9 +143,13 @@ const CustomerAddress = () => {
                 height={"50%"}
                 padding={"4px"}
               >
-                hello
+                {Object.entries(formData).map(([name, value]) => (
+                  <RenderView name={name} value={value} />
+                ))}
               </Box>
-              <Box border={1} borderColor={"blue"} height={"50%"}></Box>
+              <Box border={1} borderColor={"blue"} height={"50%"}>
+                Hello
+              </Box>
             </Box>
           </>
         )}
@@ -141,3 +159,14 @@ const CustomerAddress = () => {
 };
 
 export default CustomerAddress;
+
+const RenderView = ({ name, value }) => {
+  return (
+    <Box display={"flex"}>
+      <Typography fontSize={"8px"} mr={"5px"} width={"60px"}>
+        {formatName(name)}
+      </Typography>
+      <Typography fontSize={"8px"}>{value}</Typography>
+    </Box>
+  );
+};

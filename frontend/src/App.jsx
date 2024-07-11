@@ -13,6 +13,7 @@ import {
 import FormStepper from "./components/stepper/FormStepper";
 import { TestStepper } from "./components/stepper/TestSteps";
 import CustomerRegistration from "./components/customer/CustomerRegistration";
+import CustomComponentsDemo from "./customcomponents/CustomComponentsDemo";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       {/* <FinancialDetails /> */}
       {/* <TestStepper /> */}
       <CustomerRegistration />
+      {/* <CustomComponentsDemo /> */}
     </>
   );
 }

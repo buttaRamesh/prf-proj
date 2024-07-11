@@ -14,6 +14,7 @@ import * as yup from "yup";
 import FormikMuiInput, { FormikMuiDateField } from "../stepper/FormikMuiInput";
 import CustomerRegistrationReview from "./CustomerRegistrationReview";
 import CustomerAddress from "./CustomerAddress";
+import FormikGenderButton from "../../customFormikFields/FormikGenderButton";
 
 // export const registrationValidationSchema = {
 //   personalDetailsSchema,
@@ -72,7 +73,6 @@ const FormContainer = styled(Box)({
 });
 
 export const PersonalDetails = (props) => {
-  console.log("props", props);
   return (
     <FormContainer>
       <FormikMuiInput
@@ -81,13 +81,17 @@ export const PersonalDetails = (props) => {
         name="personalDetails.firstName"
         id="firstName"
       />
-
       <FormikMuiInput
         variant="standard"
         label="Last Name"
         fullWidth
         name="personalDetails.lastName"
         id="lastName"
+      />
+      <FormikGenderButton
+        label="Gender"
+        name="personalDetails.gender"
+        id="gender"
       />
       {/* <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker label="Date of Birth" name="dob" id="dob" />
@@ -314,7 +318,7 @@ export const initialCustomerFormData = {
   personalDetails: {
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: "other",
     // dob: new Date(),
   },
   contactDetails: {
@@ -331,6 +335,7 @@ export const initialCustomerFormData = {
     state: "",
     country: "",
     pinCode: "",
+    isPermanent: true,
   },
   identificationDetails: {
     panNumber: "",
