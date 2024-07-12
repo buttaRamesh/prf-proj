@@ -41,8 +41,10 @@ const stepStyle = {
 export const NavContext = createContext();
 const MultiStepperForm = ({ children, initialValues }) => {
   const [activeStep, navigateTo] = useState(2);
+  const [finishedSteps, addToFinishedSteps] = useState([]);
   const steps = React.Children.toArray(children);
   const currentStep = steps[activeStep];
+  const currentStepName = currentStep.props.stepName;
 
   const isLastStep = () => activeStep === steps.length - 1;
   const handleSubmit = (values, helpers) => {
@@ -56,6 +58,8 @@ const MultiStepperForm = ({ children, initialValues }) => {
     }
   };
   const handleNext = () => {
+    if (!finishedSteps.includes(currentStepName))
+      addToFinishedSteps([...finishedSteps, currentStep.props.stepName]);
     navigateTo(Math.min(activeStep + 1, steps.length - 1));
   };
   const handleBack = () => {
@@ -70,7 +74,15 @@ const MultiStepperForm = ({ children, initialValues }) => {
     >
       {(formik) => (
         <Form>
-          <NavContext.Provider value={{ activeStep, navigateTo, isLastStep }}>
+          <NavContext.Provider
+            value={{
+              activeStep,
+              navigateTo,
+              isLastStep,
+              finishedSteps,
+              addToFinishedSteps,
+            }}
+          >
             <Box
               display={"flex"}
               flexDirection={"column"}

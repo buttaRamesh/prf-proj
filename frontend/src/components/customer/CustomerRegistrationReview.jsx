@@ -28,7 +28,7 @@ const CustomerRegistrationReview = () => {
   const [expandedPanel, setExpandedPanel] = useState(defaultPanel);
   const { navigateTo } = useContext(NavContext);
   return (
-    <Box>
+    <Box padding={2} gap={1}>
       {Object.entries(formData).map(([stepName, stepData], stepNumber) => (
         <Accordion
           expanded={expandedPanel === stepName}
@@ -41,11 +41,11 @@ const CustomerRegistrationReview = () => {
             <Header name={formatName(stepName)} />
           </AccordionSummary>
           <AccordionDetails>
-            {Object.entries(stepData).map(([fieldName, fieldValue]) => (
-              <div>
-                {formatName(fieldName)} : {fieldValue}
-              </div>
-            ))}
+            {stepName == "addressess" ? (
+              <AddressDetailView addresses={stepData} />
+            ) : (
+              <DetailView data={stepData} />
+            )}
           </AccordionDetails>
           <AccordionActions>
             <Button
@@ -81,6 +81,28 @@ const Header = ({ name }) => {
   );
 };
 
+const DetailView = ({ data }) => {
+  return Object.entries(data).map(([fieldName, fieldValue]) => (
+    <div>
+      {formatName(fieldName)} : {fieldValue}
+    </div>
+  ));
+};
+const AddressDetailView = ({ addresses }) => {
+  return (
+    <Box display={"flex"} flexDirection={"row"} gap={2}>
+      {addresses.map((data) => (
+        <Box width={"50%"}>
+          {Object.entries(data).map(([fieldName, fieldValue]) => (
+            <div>
+              {formatName(fieldName)} : {fieldValue}
+            </div>
+          ))}
+        </Box>
+      ))}
+    </Box>
+  );
+};
 export default CustomerRegistrationReview;
 
 {

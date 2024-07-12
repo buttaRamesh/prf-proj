@@ -36,6 +36,22 @@ const contactDetailsSchema = yup.object({
     email: yup.string().email().required(),
   }),
 });
+
+const addressessSchema = yup.object({
+  addressess: yup.array(
+    yup.object({
+      houseNumber: yup.string().required("house number required"),
+      pinCode: yup
+        .number("must be numeric")
+        .required("pin required")
+        .typeError("must be numeric"),
+      street: yup.string().required("required city"),
+      city: yup.string().required("required city"),
+      state: yup.string().required("select state"),
+      country: yup.string().required("select country"),
+    })
+  ),
+});
 const addressDetailsSchema = yup.object({
   addressDetails: yup.object({
     houseNumber: yup.string().required("house number required"),
@@ -292,7 +308,7 @@ export const formSteps = [
   },
   {
     name: "Address Details",
-    schema: addressDetailsSchema,
+    schema: addressessSchema,
     // getComponent: (props = {}) => <AddressDetails {...props} />,
     getComponent: (props = {}) => <CustomerAddress {...props} />,
   },
@@ -314,6 +330,17 @@ export const formSteps = [
   },
 ];
 
+const initialAddressData = {
+  houseNumber: "",
+  flatNumber: "",
+  landMark: "",
+  street: "",
+  city: "",
+  state: "",
+  country: "",
+  pinCode: "",
+  type: 0,
+};
 export const initialCustomerFormData = {
   personalDetails: {
     firstName: "",
@@ -326,17 +353,19 @@ export const initialCustomerFormData = {
     phone1: "",
     phone2: "",
   },
-  addressDetails: {
-    houseNumber: "",
-    flatNumber: "",
-    landMark: "",
-    street: "",
-    city: "",
-    state: "",
-    country: "",
-    pinCode: "",
-    isPermanent: true,
-  },
+  // addressDetails: {
+  //   houseNumber: "",
+  //   flatNumber: "",
+  //   landMark: "",
+  //   street: "",
+  //   city: "",
+  //   state: "",
+  //   country: "",
+  //   pinCode: "",
+  //   isPermanent: true,
+  // },
+
+  addressess: [initialAddressData],
   identificationDetails: {
     panNumber: "",
     adhaarNumber: "",
