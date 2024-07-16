@@ -14,6 +14,10 @@ import FormStepper from "./components/stepper/FormStepper";
 import { TestStepper } from "./components/stepper/TestSteps";
 import CustomerRegistration from "./components/customer/CustomerRegistration";
 import CustomComponentsDemo from "./customcomponents/CustomComponentsDemo";
+import { PinCodeDemo } from "./customcomponents/PinCode";
+import { PincodeAutoCompletionDemo } from "./customcomponents/PincodeAutoCompletion";
+import AutoCompleteDemo from "./customcomponents/AutoCompleteDemo";
+import { CityFieldDemo } from "./customcomponents/CityFIeld";
 
 function App() {
   return (
@@ -26,6 +30,10 @@ function App() {
       {/* <TestStepper /> */}
       <CustomerRegistration />
       {/* <CustomComponentsDemo /> */}
+      {/* <PinCodeDemo /> */}
+      {/* <PincodeAutoCompletionDemo /> */}
+      {/* <AutoCompleteDemo /> */}
+      {/* <CityFieldDemo /> */}
     </>
   );
 }

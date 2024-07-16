@@ -10,7 +10,7 @@ import FormStep from "../stepper/FormStep";
 
 const CustomerRegistration = () => {
   return (
-    <Container maxWidth="sm" sx={{ bgcolor: "lightskyblue" }}>
+    <Container maxWidth="md" sx={{ bgcolor: "lightskyblue" }}>
       <MultiStepperForm initialValues={initialCustomerFormData}>
         {formSteps.map((formStep) => (
           <FormStep

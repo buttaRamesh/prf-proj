@@ -48,11 +48,19 @@ const MultiStepperForm = ({ children, initialValues }) => {
 
   const isLastStep = () => activeStep === steps.length - 1;
   const handleSubmit = (values, helpers) => {
-    console.log("submited values");
-    console.log(values);
+    console.log("submitttt");
     if (isLastStep()) {
       console.log("last step");
+      console.log("final submission");
+      console.log(values);
     } else {
+      console.log("submited values for ", currentStepName);
+      let key = currentStepName[0].toLowerCase() + currentStepName.substring(1);
+      const splitArr = key.split(" ");
+      key = splitArr.join("");
+      console.log(key);
+      console.log(values[key]);
+
       handleNext();
       helpers.setTouched({});
     }
@@ -73,7 +81,7 @@ const MultiStepperForm = ({ children, initialValues }) => {
       validationSchema={currentStep.props.validationSchema}
     >
       {(formik) => (
-        <Form>
+        <Form name="registration-form" id="registration-form">
           <NavContext.Provider
             value={{
               activeStep,

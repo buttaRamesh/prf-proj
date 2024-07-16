@@ -313,18 +313,18 @@ export const formSteps = [
     getComponent: (props = {}) => <CustomerAddress {...props} />,
   },
   {
-    name: "Identification",
+    name: "Identification Details",
     schema: identificationDetailsSchema,
     getComponent: (props = {}) => <IdentificationDetails {...props} />,
   },
   {
-    name: "Bank Details",
+    name: "Financial Details",
     schema: financialDetailsSchema,
     getComponent: (props = {}) => <FinancialDetails {...props} />,
   },
   {
     name: "Review Info",
-    schema: {},
+    schema: null,
     component: <CustomerRegistrationReview />,
     getComponent: (props = {}) => <CustomerRegistrationReview {...props} />,
   },

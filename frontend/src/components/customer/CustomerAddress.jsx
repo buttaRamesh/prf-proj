@@ -8,8 +8,11 @@ import {
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import FormikMuiInput from "../stepper/FormikMuiInput";
-import { FieldArray, useFormikContext } from "formik";
+import { Field, FieldArray, useFormikContext } from "formik";
 import { NavContext } from "../stepper/MultiStepperForm";
+import { TextField } from "formik-mui";
+import PincodeAutoCompletion from "../../customcomponents/PincodeAutoCompletion";
+import CityField from "../../customcomponents/CityFIeld";
 const formatName = (camel) => {
   const camelCase = camel.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
   let flat = "";
@@ -36,7 +39,7 @@ const CustomerAddress = () => {
   const [add1Saved, setAdd1Saved] = useState(false);
   const [isAddressSaved, setAddressSaved] = useState(false);
   const [addressCount, setAddressCount] = useState(0);
-  console.log("addressCount", addressCount);
+  // console.log("addressCount", addressCount);
   const handleSave = () => {
     setAddressSaved(true);
     setAddressCount(addressCount + 1);
@@ -48,7 +51,7 @@ const CustomerAddress = () => {
   const { finishedSteps } = useContext(NavContext);
 
   useEffect(() => {
-    console.log("finishedSteps", finishedSteps);
+    // console.log("finishedSteps", finishedSteps);
     if (finishedSteps.includes("Address Details")) {
       setAddressCount(addressEntries.length);
       setAddressSaved(true);
@@ -75,13 +78,18 @@ const CustomerAddress = () => {
   const isFormValidated =
     formikContext.isValid &&
     reqFields.every((elm) => touchedFields.includes(elm));
-  console.log("isformvalidated", isFormValidated);
+  // console.log("isformvalidated", isFormValidated);
   const toRenderView =
     !errors && reqFields.every((elm) => addressEntries[elm]) && true;
   if (toRenderView && !add1Saved) {
     setAdd1Saved(true);
   }
-
+  const [cityOptions, setCityOptions] = useState([]);
+  console.log(
+    `isAddressSave==${isAddressSaved} -- addressCount==${addressCount} -- isFormValidated=${isFormValidated}`
+  );
+  console.log("touched");
+  console.log(formikContext.touched.addressess);
   return (
     <FieldArray name="addressess">
       {({ push, remove }) => (
@@ -98,17 +106,25 @@ const CustomerAddress = () => {
               gap={3}
               padding={"5px"}
             >
-              <FormikMuiInput
+              <Field
                 label="House Number"
                 name={`addressess[${index}].houseNumber`}
                 id="houseNumber"
                 disabled={isAddressSaved}
+                component={TextField}
+                size="samall"
+                variant="standard"
+                fullWidth
               />
-              <FormikMuiInput
+              <Field
                 label="Flat Number"
                 name={`addressess[${index}].flatNumber`}
                 id="flatNumber"
                 disabled={isAddressSaved}
+                component={TextField}
+                size="samall"
+                variant="standard"
+                fullWidth
               />
             </Box>
             <Box
@@ -117,17 +133,25 @@ const CustomerAddress = () => {
               gap={3}
               padding={"5px"}
             >
-              <FormikMuiInput
+              <Field
                 label="Street"
                 name={`addressess[${index}].street`}
                 id="street"
                 disabled={isAddressSaved}
+                component={TextField}
+                size="samall"
+                variant="standard"
+                fullWidth
               />
-              <FormikMuiInput
+              <Field
                 label="Land mark"
                 name={`addressess[${index}].landMark`}
                 id="landMark"
                 disabled={isAddressSaved}
+                component={TextField}
+                size="samall"
+                variant="standard"
+                fullWidth
               />
             </Box>
             <Box
@@ -136,17 +160,32 @@ const CustomerAddress = () => {
               display={"flex"}
               justifyContent={"space-between"}
             >
-              <FormikMuiInput
+              <Field
                 label="Pin Code"
                 name={`addressess[${index}].pinCode`}
                 id="pinCode"
                 disabled={isAddressSaved}
+                component={PincodeAutoCompletion}
+                setCityOptions={setCityOptions}
+                fields={{
+                  city: `addressess[${index}].city`,
+                  state: `addressess[${index}].state`,
+                  country: `addressess[${index}].country`,
+                }}
+                size="small"
+                variant="standard"
+                fullWidth
               />
-              <FormikMuiInput
-                label="City"
+
+              <Field
+                label="City/Village"
                 name={`addressess[${index}].city`}
                 id="city"
                 disabled={isAddressSaved}
+                component={CityField}
+                options={cityOptions}
+                size="small"
+                variant="standard"
               />
             </Box>
             <Box
@@ -155,29 +194,28 @@ const CustomerAddress = () => {
               display={"flex"}
               justifyContent={"space-between"}
             >
-              <FormikMuiInput
+              <Field
                 label="State"
                 name={`addressess[${index}].state`}
                 id="state"
-                sx={{ width: "250px" }}
-                size="small"
-                select
+                // sx={{ width: "250px" }}
                 disabled={isAddressSaved}
-              >
-                <MenuItem value="savings">Savings</MenuItem>
-                <MenuItem value="current">Current</MenuItem>
-              </FormikMuiInput>
-              <FormikMuiInput
+                component={TextField}
+                variant="standard"
+                size="small"
+                fullWidth
+              />
+              <Field
                 label="Country"
                 name={`addressess[${index}].country`}
                 id="country"
-                sx={{ width: "250px" }}
-                select
+                // sx={{ width: "250px" }}
                 disabled={isAddressSaved}
-              >
-                <MenuItem value="savings">Savings</MenuItem>
-                <MenuItem value="current">Current</MenuItem>
-              </FormikMuiInput>
+                component={TextField}
+                variant="standard"
+                size="small"
+                fullWidth
+              />
             </Box>
             <Box>
               {addressCount < 2 && (
@@ -231,9 +269,15 @@ const CustomerAddress = () => {
               {addressCount > 0 && (
                 <>
                   <Box height={"50%"} padding={"4px"}>
-                    {Object.entries(addressEntries[0]).map(([name, value]) => (
-                      <RenderAddressView name={name} value={value} />
-                    ))}
+                    {Object.entries(addressEntries[0]).map(
+                      ([name, value], index) => (
+                        <RenderAddressView
+                          key={index}
+                          name={name}
+                          value={value}
+                        />
+                      )
+                    )}
                   </Box>
                   <Divider />
                 </>
@@ -249,26 +293,6 @@ const CustomerAddress = () => {
                 </>
               )}
             </Box>
-
-            {/* {toRenderView && (
-              <>
-                <Box display={"flex"} flexDirection={"column"} height={"100%"}>
-                  <Box
-                    border={1}
-                    borderColor={"red"}
-                    height={"50%"}
-                    padding={"4px"}
-                  >
-                    {Object.entries(formData).map(([name, value]) => (
-                      <RenderAddressView name={name} value={value} />
-                    ))}
-                  </Box>
-                  <Box border={1} borderColor={"blue"} height={"50%"}>
-                    Hello
-                  </Box>
-                </Box>
-              </>
-            )} */}
           </Box>
         </Box>
       )}
