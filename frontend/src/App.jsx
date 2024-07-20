@@ -18,6 +18,12 @@ import { PinCodeDemo } from "./customcomponents/PinCode";
 import { PincodeAutoCompletionDemo } from "./customcomponents/PincodeAutoCompletion";
 import AutoCompleteDemo from "./customcomponents/AutoCompleteDemo";
 import { CityFieldDemo } from "./customcomponents/CityFIeld";
+import { BankDetailsDemo } from "./components/customer/BankDetails";
+import ScreenLayout from "./components/layout/ScreenLayout";
+import AuthProvider from "./components/auth/AuthProvider";
+import Home from "./components/nav/Home";
+import { RouterProvider } from "react-router-dom";
+import router from "./components/nav/router";
 
 function App() {
   return (
@@ -28,12 +34,16 @@ function App() {
       {/* <AddressDetails /> */}
       {/* <FinancialDetails /> */}
       {/* <TestStepper /> */}
-      <CustomerRegistration />
+      {/* <CustomerRegistration /> */}
       {/* <CustomComponentsDemo /> */}
       {/* <PinCodeDemo /> */}
       {/* <PincodeAutoCompletionDemo /> */}
       {/* <AutoCompleteDemo /> */}
       {/* <CityFieldDemo /> */}
+      {/* <BankDetailsDemo /> */}
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 }

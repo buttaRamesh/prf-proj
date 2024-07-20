@@ -15,10 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from pincodes.views import PincodesList
+from ifsc.views import IfscRetrieve
 from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/pincode',PincodesList.as_view(),name='pincodes-list')
+    path('api/pincode',PincodesList.as_view(),name='pincodes-list'),
+    path('api/ifsc/<str:ifsc>',IfscRetrieve.as_view(),name='ifsc-get')
 ]

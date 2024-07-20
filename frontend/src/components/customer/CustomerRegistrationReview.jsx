@@ -24,13 +24,13 @@ const formatName = (camel) => {
 const CustomerRegistrationReview = () => {
   const { values: formData } = useFormikContext();
   const defaultPanel = Object.keys(formData)[0];
-  console.log(defaultPanel);
   const [expandedPanel, setExpandedPanel] = useState(defaultPanel);
   const { navigateTo } = useContext(NavContext);
   return (
     <Box padding={2} gap={1}>
       {Object.entries(formData).map(([stepName, stepData], stepNumber) => (
         <Accordion
+          key={stepNumber}
           expanded={expandedPanel === stepName}
           onChange={() => {
             setExpandedPanel(expandedPanel === stepName ? false : stepName);
@@ -82,8 +82,8 @@ const Header = ({ name }) => {
 };
 
 const DetailView = ({ data }) => {
-  return Object.entries(data).map(([fieldName, fieldValue]) => (
-    <div>
+  return Object.entries(data).map(([fieldName, fieldValue], index) => (
+    <div key={index}>
       {formatName(fieldName)} : {fieldValue}
     </div>
   ));
@@ -91,10 +91,11 @@ const DetailView = ({ data }) => {
 const AddressDetailView = ({ addresses }) => {
   return (
     <Box display={"flex"} flexDirection={"row"} gap={2}>
-      {addresses.map((data) => (
-        <Box width={"50%"}>
-          {Object.entries(data).map(([fieldName, fieldValue]) => (
-            <div>
+      {addresses.map((data, index) => (
+        <Box width={"50%"} key={index}>
+          ,key={index}
+          {Object.entries(data).map(([fieldName, fieldValue], index) => (
+            <div key={index}>
               {formatName(fieldName)} : {fieldValue}
             </div>
           ))}
@@ -104,30 +105,3 @@ const AddressDetailView = ({ addresses }) => {
   );
 };
 export default CustomerRegistrationReview;
-
-{
-  /* <Accordion sx={{ backgroundColor: "lightgray" }}>
-<AccordionSummary>
-  <Header name="Personal Details" />
-</AccordionSummary>
-<AccordionDetails>
-  {Object.entries(formData.personalDetails).map(([name, value]) => (
-    <div>
-      {formatName(name)} : {value}
-    </div>
-  ))}
-</AccordionDetails>
-<AccordionActions>
-  <Button
-    variant="contained"
-    color="error"
-    size="small"
-    onClick={() => {
-      navigateTo(0);
-    }}
-  >
-    Edit
-  </Button>
-</AccordionActions>
-</Accordion> */
-}

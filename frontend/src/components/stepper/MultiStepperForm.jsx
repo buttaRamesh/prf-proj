@@ -40,7 +40,7 @@ const stepStyle = {
 
 export const NavContext = createContext();
 const MultiStepperForm = ({ children, initialValues }) => {
-  const [activeStep, navigateTo] = useState(2);
+  const [activeStep, navigateTo] = useState(4);
   const [finishedSteps, addToFinishedSteps] = useState([]);
   const steps = React.Children.toArray(children);
   const currentStep = steps[activeStep];

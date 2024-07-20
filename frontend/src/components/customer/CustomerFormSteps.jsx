@@ -15,6 +15,7 @@ import FormikMuiInput, { FormikMuiDateField } from "../stepper/FormikMuiInput";
 import CustomerRegistrationReview from "./CustomerRegistrationReview";
 import CustomerAddress from "./CustomerAddress";
 import FormikGenderButton from "../../customFormikFields/FormikGenderButton";
+import BankDetails from "./BankDetails";
 
 // export const registrationValidationSchema = {
 //   personalDetailsSchema,
@@ -317,10 +318,17 @@ export const formSteps = [
     schema: identificationDetailsSchema,
     getComponent: (props = {}) => <IdentificationDetails {...props} />,
   },
+  // {
+  //   name: "Financial Details",
+  //   schema: financialDetailsSchema,
+  //   getComponent: (props = {}) => <FinancialDetails {...props} />,
+  // },
   {
-    name: "Financial Details",
-    schema: financialDetailsSchema,
-    getComponent: (props = {}) => <FinancialDetails {...props} />,
+    name: "Bank Details",
+    schema: null,
+    getComponent: (props = {}) => (
+      <BankDetails formName="bankDetails" {...props} />
+    ),
   },
   {
     name: "Review Info",
@@ -353,29 +361,22 @@ export const initialCustomerFormData = {
     phone1: "",
     phone2: "",
   },
-  // addressDetails: {
-  //   houseNumber: "",
-  //   flatNumber: "",
-  //   landMark: "",
-  //   street: "",
-  //   city: "",
-  //   state: "",
-  //   country: "",
-  //   pinCode: "",
-  //   isPermanent: true,
-  // },
-
   addressess: [initialAddressData],
   identificationDetails: {
     panNumber: "",
     adhaarNumber: "",
   },
-  financialDetails: {
-    accountNumber: "",
-    accountType: "",
-    ifscCode: "",
-    bankName: "",
-    bankAddress: "",
+  bankDetails: {
+    account: "",
+    type: "Saving",
+    ifsc: "",
+    bank: "",
+    branch: "",
+    address: "",
+    micr: "",
+    city: "",
+    district: "",
+    state: "",
   },
 };
 
