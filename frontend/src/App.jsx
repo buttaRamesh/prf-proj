@@ -3,23 +3,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import {
-  PersonalDetails,
-  ContactDetails,
-  IdentificationDetails,
-  AddressDetails,
-  FinancialDetails,
-} from "./components/customer/CustomerFormSteps";
-import FormStepper from "./components/stepper/FormStepper";
-import { TestStepper } from "./components/stepper/TestSteps";
-import CustomerRegistration from "./components/customer/CustomerRegistration";
-import CustomComponentsDemo from "./customcomponents/CustomComponentsDemo";
-import { PinCodeDemo } from "./customcomponents/PinCode";
-import { PincodeAutoCompletionDemo } from "./customcomponents/PincodeAutoCompletion";
-import AutoCompleteDemo from "./customcomponents/AutoCompleteDemo";
-import { CityFieldDemo } from "./customcomponents/CityFIeld";
-import { BankDetailsDemo } from "./components/customer/BankDetails";
-import ScreenLayout from "./components/layout/ScreenLayout";
+
 import AuthProvider from "./components/auth/AuthProvider";
 import Home from "./components/nav/Home";
 import { RouterProvider } from "react-router-dom";

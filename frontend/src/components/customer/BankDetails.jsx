@@ -3,6 +3,7 @@ import { Field, Form, Formik } from "formik";
 import { TextField as TextFieldMF } from "formik-mui";
 import IfscField from "../../customcomponents/IfscField";
 import { formatFieldName } from "../../utils/jsutils";
+import FormikMuiTextField from "../formik/FormikMuiTextField";
 
 const getFieldName = (formName, fieldName) => `${formName}.${fieldName}`;
 
@@ -11,28 +12,25 @@ const BankDetails = ({ formName }) => {
     <Stack p={5} gap={2}>
       <Grid container spacing={2}>
         <Grid item md={8}>
-          <Field
+          <FormikMuiTextField
             label={"Account Number"}
             name={formatFieldName(formName, "account")}
             size="small"
             fullWidth
-            component={TextFieldMF}
           />
         </Grid>
         <Grid item md={4}>
-          <Field
+          <FormikMuiTextField
             label={"Account Type"}
             name={formatFieldName(formName, "type")}
             size="small"
             fullWidth
-            component={TextFieldMF}
           />
         </Grid>
         <Grid item md={3}>
-          <Field
+          <FormikMuiTextField
             name={getFieldName(formName, "ifsc")}
             label="IFSC Code"
-            component={IfscField}
             fullWidth
             size="small"
             formFields={{
@@ -50,64 +48,57 @@ const BankDetails = ({ formName }) => {
           />
         </Grid>
         <Grid item md={9}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "bank")}
             label="Bank Name"
             fullWidth
             size="small"
-            component={TextFieldMF}
           />
         </Grid>
         <Grid item md={3}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "micr")}
             label="Micr code"
             fullWidth
             size="small"
-            component={TextFieldMF}
           />
         </Grid>
         <Grid item md={9}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "branch")}
             label="Branch"
-            component={TextFieldMF}
             fullWidth
             size="small"
           />
         </Grid>
         <Grid item md={6}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "city")}
             label="City"
-            component={TextFieldMF}
             fullWidth
             size="small"
           />
         </Grid>
         <Grid item md={6}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "district")}
             label="District"
-            component={TextFieldMF}
             fullWidth
             size="small"
           />
         </Grid>
         <Grid item md={12}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "state")}
             label="State"
-            component={TextFieldMF}
             fullWidth
             size="small"
           />
         </Grid>
         <Grid item md={12}>
-          <Field
+          <FormikMuiTextField
             name={formatFieldName(formName, "address")}
             label="Address"
-            component={TextFieldMF}
             fullWidth
             size="small"
           />

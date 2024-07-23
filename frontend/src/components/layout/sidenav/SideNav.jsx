@@ -1,7 +1,8 @@
 import { Box, List, ListItem, ListItemButton } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
+import routes from "./sideNavData";
 
 const SideNav = () => {
   const { isLogin } = useAuth();
@@ -23,50 +24,90 @@ const SideNav = () => {
     >
       {isLogin && (
         <List sx={{ color: "whitesmoke" }}>
-          <ListItem>
-            <ListItemButton
-              component={Link}
-              to="page1"
-              sx={{
-                "&:hover": {
-                  bgcolor: "green",
-                },
-              }}
-            >
-              Page1
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton component={Link} to="page2">
-              Page2
-            </ListItemButton>
-          </ListItem>
+          {routes.map((route, index) =>
+            route.child ? (
+              <RouteList parent={route} key={index} />
+            ) : (
+              <RouteItem route={route} key={index} />
+            )
+          )}
         </List>
       )}
-      {/* <List sx={{ color: "whitesmoke" }}>
-        <ListItem>
-          <ListItemButton
-            component={Link}
-            to="page1"
-            sx={{
-              "&:hover": {
-                bgcolor: "green",
-              },
-            }}
-          >
-            Page1
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton component={Link} to="page2">
-            Page2
-          </ListItemButton>
-        </ListItem>
-      </List> */}
     </Box>
   );
 };
 
 export default SideNav;
 
+const RouteItem = ({ route }) => {
+  return (
+    <ListItem sx={{ paddingLeft: "5px" }}>
+      <ListItemButton
+        component={!route.child ? NavLink : null}
+        // style={({ isActive }) =>
+        //   isActive
+        //     ? {
+        //         backgroundColor: "orange",
+        //       }
+        //     : null
+        // }
+        to={route.path}
+        sx={{
+          color: "white",
+          "&:hover": {
+            bgcolor: "warning.main",
+          },
+        }}
+      >
+        {route.text}
+      </ListItemButton>
+    </ListItem>
+  );
+};
+
+const RouteList = ({ parent }) => {
+  console.log("parent", parent);
+  return (
+    <>
+      <RouteItem route={parent} />
+      <List sx={{ paddingLeft: "20px" }}>
+        {parent.child.map((route, index) =>
+          route.child ? (
+            <RouteList parent={route} key={index} />
+          ) : (
+            <RouteItem route={route} key={index} />
+          )
+        )}
+      </List>
+    </>
+  );
+};
+
 // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+
+// {isLogin && (
+//   <List sx={{ color: "whitesmoke" }}>
+//     {routes.map((route, index) => (
+//       <ListItem>
+//         <ListItemButton
+//           component={NavLink}
+//           style={({ isActive }) =>
+//             isActive
+//               ? {
+//                   backgroundColor: "orange",
+//                 }
+//               : null
+//           }
+//           to={route.path}
+//           sx={{
+//             "&:hover": {
+//               bgcolor: "warning.main",
+//             },
+//           }}
+//         >
+//           {route.text}
+//         </ListItemButton>
+//       </ListItem>
+//     ))}
+//   </List>
+// )}

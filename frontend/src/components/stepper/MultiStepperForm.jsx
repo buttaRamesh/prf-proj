@@ -9,7 +9,7 @@ const stepStyle = {
   borderTopLeftRadius: "20px",
   borderTopRightRadius: "20px",
   // backgroundColor: "rgba(0,0,0,0.1)",
-  padding: "4px 0 2px 0",
+  padding: "10px 0 10px 0",
   "& .Mui-active": {
     "&.MuiStepIcon-root": {
       color: "warning.main",
@@ -29,7 +29,7 @@ const stepStyle = {
     },
   },
   "& .MuiStepLabel-label": {
-    fontSize: "0.6rem",
+    fontSize: "0.9rem",
   },
   "& .MuiStepLabel-alternativeLabel": {
     "&.MuiStepLabel-label": {
@@ -39,8 +39,8 @@ const stepStyle = {
 };
 
 export const NavContext = createContext();
-const MultiStepperForm = ({ children, initialValues }) => {
-  const [activeStep, navigateTo] = useState(4);
+const MultiStepperForm = ({ children, initialValues, ...props }) => {
+  const [activeStep, navigateTo] = useState(0);
   const [finishedSteps, addToFinishedSteps] = useState([]);
   const steps = React.Children.toArray(children);
   const currentStep = steps[activeStep];
@@ -53,6 +53,7 @@ const MultiStepperForm = ({ children, initialValues }) => {
       console.log("last step");
       console.log("final submission");
       console.log(values);
+      props.onSubmit(values, helpers);
     } else {
       console.log("submited values for ", currentStepName);
       let key = currentStepName[0].toLowerCase() + currentStepName.substring(1);
@@ -81,32 +82,34 @@ const MultiStepperForm = ({ children, initialValues }) => {
       validationSchema={currentStep.props.validationSchema}
     >
       {(formik) => (
-        <Form name="registration-form" id="registration-form">
-          <NavContext.Provider
-            value={{
-              activeStep,
-              navigateTo,
-              isLastStep,
-              finishedSteps,
-              addToFinishedSteps,
-            }}
+        <NavContext.Provider
+          value={{
+            activeStep,
+            navigateTo,
+            isLastStep,
+            finishedSteps,
+            addToFinishedSteps,
+          }}
+        >
+          <Box
+            flexGrow={1}
+            border={2}
+            borderColor={"red"}
+            display={"flex"}
+            flexDirection={"column"}
           >
             <Box
+              flexGrow={1}
+              borderColor={"green"}
+              border={3}
+              borderRadius={"20px"}
               display={"flex"}
               flexDirection={"column"}
-              justifyContent={"space-between"}
-              sx={{
-                minHeight: 400,
-              }}
             >
-              <Box
-                mt={2}
+              <Form
+                name="registration-form"
+                id="registration-form"
                 flexGrow={1}
-                // borderColor={"orange"}
-                border={2}
-                borderRadius={"20px"}
-                display={"flex"}
-                flexDirection={"column"}
               >
                 <Stepper
                   activeStep={activeStep}
@@ -120,12 +123,11 @@ const MultiStepperForm = ({ children, initialValues }) => {
                   ))}
                 </Stepper>
                 {currentStep}
-              </Box>
-
-              <NavigationPanel />
+                <NavigationPanel />
+              </Form>
             </Box>
-          </NavContext.Provider>
-        </Form>
+          </Box>
+        </NavContext.Provider>
       )}
     </Formik>
   );

@@ -13,6 +13,8 @@ import { NavContext } from "../stepper/MultiStepperForm";
 import { TextField } from "formik-mui";
 import PincodeAutoCompletion from "../../customcomponents/PincodeAutoCompletion";
 import CityField from "../../customcomponents/CityFIeld";
+import FormikMuiTextField from "../formik/FormikMuiTextField";
+import PincodeField from "../../customcomponents/PincodeField";
 const formatName = (camel) => {
   const camelCase = camel.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
   let flat = "";
@@ -106,22 +108,20 @@ const CustomerAddress = () => {
               gap={3}
               padding={"5px"}
             >
-              <Field
+              <FormikMuiTextField
                 label="House Number"
                 name={`addressess[${index}].houseNumber`}
                 id="houseNumber"
-                disabled={isAddressSaved}
-                component={TextField}
+                // disabled={isAddressSaved}
                 size="samall"
                 variant="standard"
                 fullWidth
               />
-              <Field
+              <FormikMuiTextField
                 label="Flat Number"
                 name={`addressess[${index}].flatNumber`}
                 id="flatNumber"
-                disabled={isAddressSaved}
-                component={TextField}
+                // disabled={isAddressSaved}
                 size="samall"
                 variant="standard"
                 fullWidth
@@ -133,22 +133,20 @@ const CustomerAddress = () => {
               gap={3}
               padding={"5px"}
             >
-              <Field
+              <FormikMuiTextField
                 label="Street"
                 name={`addressess[${index}].street`}
                 id="street"
-                disabled={isAddressSaved}
-                component={TextField}
+                // disabled={isAddressSaved}
                 size="samall"
                 variant="standard"
                 fullWidth
               />
-              <Field
+              <FormikMuiTextField
                 label="Land mark"
                 name={`addressess[${index}].landMark`}
                 id="landMark"
-                disabled={isAddressSaved}
-                component={TextField}
+                // disabled={isAddressSaved}
                 size="samall"
                 variant="standard"
                 fullWidth
@@ -160,12 +158,11 @@ const CustomerAddress = () => {
               display={"flex"}
               justifyContent={"space-between"}
             >
-              <Field
+              <PincodeField
                 label="Pin Code"
                 name={`addressess[${index}].pinCode`}
                 id="pinCode"
-                disabled={isAddressSaved}
-                component={PincodeAutoCompletion}
+                // disabled={isAddressSaved}
                 setCityOptions={setCityOptions}
                 fields={{
                   city: `addressess[${index}].city`,
@@ -181,7 +178,7 @@ const CustomerAddress = () => {
                 label="City/Village"
                 name={`addressess[${index}].city`}
                 id="city"
-                disabled={isAddressSaved}
+                // disabled={isAddressSaved}
                 component={CityField}
                 options={cityOptions}
                 size="small"
@@ -194,24 +191,24 @@ const CustomerAddress = () => {
               display={"flex"}
               justifyContent={"space-between"}
             >
-              <Field
+              <FormikMuiTextField
                 label="State"
                 name={`addressess[${index}].state`}
                 id="state"
                 // sx={{ width: "250px" }}
-                disabled={isAddressSaved}
-                component={TextField}
+                // disabled={isAddressSaved}
+                // component={TextField}
                 variant="standard"
                 size="small"
                 fullWidth
               />
-              <Field
+              <FormikMuiTextField
                 label="Country"
                 name={`addressess[${index}].country`}
                 id="country"
                 // sx={{ width: "250px" }}
-                disabled={isAddressSaved}
-                component={TextField}
+                // disabled={isAddressSaved}
+                // component={TextField}
                 variant="standard"
                 size="small"
                 fullWidth
@@ -308,10 +305,10 @@ const RenderAddressView = ({ name, value }) => {
   };
   return (
     <Box display={"flex"}>
-      <Typography fontSize={"8px"} mr={"5px"} width={"60px"}>
+      <Typography fontSize={"14px"} fontWeight={500} mr={"5px"} width={"120px"}>
         {formatName(name)}
       </Typography>
-      <Typography fontSize={"8px"}>
+      <Typography fontSize={"15px"} fontWeight={600}>
         {name == "type" ? formatType(value) : value}
       </Typography>
     </Box>

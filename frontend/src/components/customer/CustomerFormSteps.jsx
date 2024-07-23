@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import Box from "@mui/material/Box";
-import {
-  Container,
-  MenuItem,
-  TextField,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Container, MenuItem, Typography, styled } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -16,6 +10,9 @@ import CustomerRegistrationReview from "./CustomerRegistrationReview";
 import CustomerAddress from "./CustomerAddress";
 import FormikGenderButton from "../../customFormikFields/FormikGenderButton";
 import BankDetails from "./BankDetails";
+import { TextField } from "formik-mui";
+import { Field } from "formik";
+import FormikMuiTextField from "../formik/FormikMuiTextField";
 
 // export const registrationValidationSchema = {
 //   personalDetailsSchema,
@@ -85,31 +82,28 @@ const FormContainer = styled(Box)({
   padding: 16,
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
+  // justifyContent: "space-between",
   gap: 20,
+
+  minHeight: "400px",
 });
 
 export const PersonalDetails = (props) => {
   return (
     <FormContainer>
-      <FormikMuiInput
+      <FormikMuiTextField
+        variant="standard"
         label="First Name"
-        fullWidth
         name="personalDetails.firstName"
-        id="firstName"
+        sx={{ width: "500px" }}
       />
-      <FormikMuiInput
+      <FormikMuiTextField
         variant="standard"
         label="Last Name"
-        fullWidth
         name="personalDetails.lastName"
-        id="lastName"
+        sx={{ width: "500px" }}
       />
-      <FormikGenderButton
-        label="Gender"
-        name="personalDetails.gender"
-        id="gender"
-      />
+
       {/* <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker label="Date of Birth" name="dob" id="dob" />
       </LocalizationProvider> */}
@@ -125,28 +119,23 @@ export const PersonalDetails = (props) => {
 export const ContactDetails = () => {
   return (
     <FormContainer>
-      <Box>
-        <Typography variant="h6">Phone Numbers</Typography>
-        <Box gap={2} display={"flex"} justifyContent={"space-between"}>
-          <FormikMuiInput
-            label="Primary"
-            name="contactDetails.phone1"
-            id="phone1"
-            sx={{ width: "250px" }}
-          />
-          <FormikMuiInput
-            label="Alternate"
-            name="contactDetails.phone2"
-            id="phone2"
-            sx={{ width: "250px" }}
-          />
-        </Box>
-      </Box>
-      <FormikMuiInput
-        name="contactDetails.email"
-        id="email"
+      <FormikMuiTextField
+        variant="standard"
+        label="Primary Phone"
+        name="contactDetails.phone1"
+        sx={{ width: "500px" }}
+      />
+      <FormikMuiTextField
+        variant="standard"
+        label="Alternate Phone "
+        name="contactDetails.phone2"
+        sx={{ width: "500px" }}
+      />
+      <FormikMuiTextField
+        variant="standard"
         label="Email"
-        fullWidth
+        name="contactDetails.email"
+        sx={{ width: "500px" }}
       />
     </FormContainer>
   );
@@ -156,13 +145,13 @@ export const AddressDetails = () => {
   return (
     <FormContainer>
       <Box gap={2} display={"flex"} justifyContent={"space-between"}>
-        <FormikMuiInput
+        <FormikMuiTextField
           label="House Number"
           sx={{ width: "250px" }}
           name="addressDetails.houseNumber"
           id="houseNumber"
         />
-        <FormikMuiInput
+        <FormikMuiTextField
           label="Flat Number"
           name="addressDetails.flatNumber"
           id="flatNumber"
@@ -171,13 +160,13 @@ export const AddressDetails = () => {
         />
       </Box>
       <Box gap={2} display={"flex"} justifyContent={"space-between"}>
-        <FormikMuiInput
+        <FormikMuiTextField
           label="Street"
           name="addressDetails.street"
           id="street"
           sx={{ width: "250px" }}
         />
-        <FormikMuiInput
+        <FormikMuiTextField
           label="Land mark"
           name="addressDetails.landMark"
           id="landMark"
@@ -186,14 +175,14 @@ export const AddressDetails = () => {
         />
       </Box>
       <Box gap={2} display={"flex"} justifyContent={"space-between"}>
-        <FormikMuiInput
+        <FormikMuiTextField
           label="Pin Code"
           name="addressDetails.pinCode"
           id="pinCode"
           sx={{ width: "250px" }}
           size="small"
         />
-        <FormikMuiInput
+        <FormikMuiTextField
           label="City"
           name="addressDetails.city"
           id="city"
@@ -231,13 +220,14 @@ export const AddressDetails = () => {
 export const IdentificationDetails = () => {
   return (
     <FormContainer>
-      <FormikMuiInput
+      <FormikMuiTextField
         label="Pan Number"
         name="identificationDetails.panNumber"
         id="panNumber"
+        variant="standard"
         sx={{ width: "300px" }}
       />
-      <FormikMuiInput
+      <FormikMuiTextField
         variant="standard"
         label="Adhaar Number"
         name="identificationDetails.adhaarNumber"
@@ -250,7 +240,7 @@ export const IdentificationDetails = () => {
 export const FinancialDetails = () => {
   return (
     <FormContainer>
-      <FormikMuiInput
+      <FormikMuiTextField
         label="Account Number"
         name="financialDetails.accountNumber"
         id="accountNumber"
@@ -269,7 +259,7 @@ export const FinancialDetails = () => {
           <MenuItem value="savings">Savings</MenuItem>
           <MenuItem value="current">Current</MenuItem>
         </FormikMuiInput>
-        <FormikMuiInput
+        <FormikMuiTextField
           variant="standard"
           label="IFSC Code"
           name="financialDetails.ifscCode"
@@ -277,14 +267,14 @@ export const FinancialDetails = () => {
           sx={{ width: "250px" }}
         />
       </Box>
-      <FormikMuiInput
+      <FormikMuiTextField
         label="Bank Name"
         name="financialDetails.bankName"
         id="bankName"
         // sx={{ width: "300px" }}
         fullWidth
       />
-      <FormikMuiInput
+      <FormikMuiTextField
         label="Address"
         name="financialDetails.bankAddress"
         id="bankAddress"
@@ -318,11 +308,7 @@ export const formSteps = [
     schema: identificationDetailsSchema,
     getComponent: (props = {}) => <IdentificationDetails {...props} />,
   },
-  // {
-  //   name: "Financial Details",
-  //   schema: financialDetailsSchema,
-  //   getComponent: (props = {}) => <FinancialDetails {...props} />,
-  // },
+
   {
     name: "Bank Details",
     schema: null,

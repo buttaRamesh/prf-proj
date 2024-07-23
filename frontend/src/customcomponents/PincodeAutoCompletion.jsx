@@ -3,6 +3,7 @@ import { Field, Form, Formik, useField, useFormikContext } from "formik";
 import { TextField as TextFieldF, Autocomplete } from "formik-mui";
 import React, { useState } from "react";
 import CityField from "./CityFIeld";
+import FormikMuiTextField from "../components/formik/FormikMuiTextField";
 
 const fetchPinCodeData = async (code) => {
   const url = "http://127.0.0.1:8000/api/pincode?code=" + code;
@@ -51,7 +52,6 @@ const PincodeAutoCompletion = ({
   return (
     // <TextFieldF label={label} onBlur={handleBlur} {...fieldProps} {...props} />
     <Field
-      name="district"
       label={label}
       onBlur={handleBlur}
       {...fieldProps}

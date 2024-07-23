@@ -9,9 +9,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useAuth } from "../../auth/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { isLogin, doLogin, doLogout } = useAuth();
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/login");
+  };
+  const handleLogout = () => {
+    doLogout();
+    navigate("");
+  };
   return (
     <Box>
       <AppBar position="static">
@@ -27,7 +36,7 @@ const Header = () => {
             variant="contained"
             color="success"
             className="tempclass"
-            onClick={isLogin ? doLogout : doLogin}
+            onClick={isLogin ? handleLogout : handleLogin}
             sx={{
               marginLeft: "auto",
             }}

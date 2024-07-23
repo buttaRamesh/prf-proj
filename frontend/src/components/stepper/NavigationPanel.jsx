@@ -12,15 +12,17 @@ const NavigationPanel = () => {
       <Button
         variant="contained"
         color="primary"
-        sx={{ marginRight: 2 }}
         onClick={handleBack}
+        sx={{ marginRight: 2, width: "200px" }}
+        size="large"
       >
         Back
       </Button>
       <Button
         variant="contained"
         color="secondary"
-        // onClick={handleNext}
+        sx={{ width: "200px" }}
+        size="large"
         type="submit"
       >
         {isLastStep() ? "Submit" : "Next"}
