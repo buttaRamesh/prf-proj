@@ -13,6 +13,7 @@ import BankDetails from "./BankDetails";
 import { TextField } from "formik-mui";
 import { Field } from "formik";
 import FormikMuiTextField from "../formik/FormikMuiTextField";
+import FormikMuiDatePicker from "../formik/FormikMuiDatePicker";
 
 // export const registrationValidationSchema = {
 //   personalDetailsSchema,
@@ -103,15 +104,8 @@ export const PersonalDetails = (props) => {
         name="personalDetails.lastName"
         sx={{ width: "500px" }}
       />
-
-      {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-        <DatePicker label="Date of Birth" name="dob" id="dob" />
-      </LocalizationProvider> */}
-      {/* <FormikMuiDateField
-        name="personalDetails.dob"
-        label="Dateof birth"
-        id="dob"
-      /> */}
+      <FormikMuiDatePicker label="Date of Birth" name="personalDetails.dob" />
+      <FormikGenderButton name="personalDetails.gender" />
     </FormContainer>
   );
 };
@@ -340,7 +334,7 @@ export const initialCustomerFormData = {
     firstName: "",
     lastName: "",
     gender: "other",
-    // dob: new Date(),
+    dob: null,
   },
   contactDetails: {
     email: "",

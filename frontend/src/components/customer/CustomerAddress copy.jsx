@@ -95,8 +95,12 @@ const CustomerAddress = () => {
   return (
     <FieldArray name="addressess">
       {({ push, remove }) => (
-        <Box display={"flex"} flexGrow={1} sx={{ padding: "10px 5px" }}>
-          <Box display={"flex"} flexDirection={"column"} width={"70%"} gap={1}>
+        <Box
+          display={"flex"}
+          flexGrow={1}
+          sx={{ padding: "10px 5px", minHeight: "100%" }}
+        >
+          <Box display={"flex"} flexDirection={"column"} width={"80%"} gap={1}>
             <Typography variant="span">Corrospondence Address</Typography>
             <Box
               display={"flex"}
@@ -257,7 +261,7 @@ const CustomerAddress = () => {
               )}
             </Box>
           </Box>
-          <Box borderLeft={1} sx={{ padding: "10px 15px" }}>
+          <Box borderLeft={1} width={"40%"} sx={{ padding: "10px 15px" }}>
             <Box display={"flex"} flexDirection={"column"} height={"100%"}>
               {addressCount > 0 && (
                 <>
@@ -301,10 +305,10 @@ const RenderAddressView = ({ name, value }) => {
   };
   return (
     <Box display={"flex"}>
-      <Typography fontSize={"12px"} fontWeight={500} mr={"5px"} width={"120px"}>
+      <Typography fontSize={"14px"} fontWeight={500} mr={"5px"} width={"120px"}>
         {formatName(name)}
       </Typography>
-      <Typography fontSize={"12px"} fontWeight={600}>
+      <Typography fontSize={"15px"} fontWeight={600}>
         {name == "type" ? formatType(value) : value}
       </Typography>
     </Box>

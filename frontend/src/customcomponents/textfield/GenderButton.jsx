@@ -18,7 +18,7 @@ const GenderButton = ({ name, value, setValue }) => {
 
   return (
     <>
-      <Box display={"flex"} gap={2} mt={4}>
+      <Box display={"flex"} gap={2}>
         <Typography alignSelf={"center"}>Gender</Typography>
         <Box
           borderRadius={"10px"}
