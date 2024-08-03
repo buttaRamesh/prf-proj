@@ -14,13 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from pincodes.views import PincodesList
-from ifsc.views import IfscRetrieve
 from django.contrib import admin
 from django.urls import path
+from address.views import AddressRUDView , CustomerAddressListView
+from pincodes.views import PincodeLookupView
+from banks.views import IfscLookupView , CustomerBankAccountListView , BankAcountRUDView
+from customer.views import CustomerListView , CustomerRUDView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/pincode',PincodesList.as_view(),name='pincodes-list'),
-    path('api/ifsc/<str:ifsc>',IfscRetrieve.as_view(),name='ifsc-get')
+    path('pincode', PincodeLookupView.as_view()),
+    path('ifsc/<pk>', IfscLookupView.as_view()),
+    path('address/<pk>', AddressRUDView.as_view()),
+    path('account/<pk>', BankAcountRUDView.as_view()),
+    path('customer', CustomerListView.as_view()),
+    path('customer/<pk>', CustomerRUDView.as_view()),
+    path('customer/<id>/account', CustomerBankAccountListView.as_view()),
+    path('customer/<id>/address', CustomerAddressListView.as_view()),
 ]

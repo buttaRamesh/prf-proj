@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o3de06d%t0(=w5!$63&k$hg-@3_c+o(swyy62)nm0t4q9=irup'
+SECRET_KEY = 'django-insecure-)e6do^ltete6w@1onag!omeh+&xdl5j$fe%)o-p*s(v)sos*7j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_extensions',
-    'customcmd',
+    'django_filters',
+    'banks',
     'pincodes',
-    'ifsc',
-    
+    'customer',
+    'address',
+    'commands',
+    'test_data',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -129,5 +131,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_ALLOW_ALL = True
 
+REST_FRAMEWORK = {
+    # 'SEARCH_PARAM': 'search'
+    # Set custom search param
+    'SEARCH_PARAM': 'pin'
+}

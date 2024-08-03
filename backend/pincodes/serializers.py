@@ -1,7 +1,7 @@
-from rest_framework import serializers
-from .models import Pincodes
+from rest_framework.serializers import ModelSerializer
+from pincodes.models import Pincodes
+class PincodeSerializer(ModelSerializer):
 
-class Pincodeserializer(serializers.ModelSerializer):
     class Meta:
         model = Pincodes
-        fields = "__all__"
+        fields = '__all__'
